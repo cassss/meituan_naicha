@@ -7,7 +7,7 @@
 
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
-import random,base64
+import random,base64,redis
 
 class MeituanSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -628,15 +628,21 @@ class MyUserAgentMiddleware(UserAgentMiddleware):
     def process_request(self, request, spider):
         # request.headers['User-Agent'] = "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36"
         request.headers['User-Agent'] = random.choice(self.user_agents)
+
 class ProxyMiddleware(object): 
+    errlist = []
 
     def process_request(self, request, spider):
         proxyServer = "http-dyn.abuyun.com:9020"
         proxy_user_pass = b"HRID47110GXA703D:FDCCBDA2D4F74C45"
         encoded_user_pass = base64.b64encode(proxy_user_pass)
+        request.meta["proxy"] = proxyServer
         request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass.decode()
 
     def process_response(self, request, response, spider):
+        if response.status == 403:
+            return request
+
         if "https://verify.meituan.com/v2/web/general_page" in str(response.url):
             if "redirect_urls" in request.meta:
                 redirect_url = request.meta['redirect_urls'][0]
@@ -645,6 +651,11 @@ class ProxyMiddleware(object):
         else:
             return response
     def process_exception(self, request, exception, spider):
-
+        name = spider.name
+        if request.url in self.errlist:
+            return request
+        else:
+            self.errlist.append(request.url)
+            rds = redis.Redis(host='localhost', port=6379, decode_responses=True)
+            rds.lpush("err_url", request.url)
         print("\n出现异常:{0}\n".format(str(exception.args[0])))
-        return 

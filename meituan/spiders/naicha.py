@@ -1,39 +1,79 @@
 # -*- coding: utf-8 -*-
-import scrapy,random,time,json
+import scrapy,random,time,json,pymongo,math,re
 from scrapy import Request
 from meituan.items import ShopInfoItem
+from scrapy.conf import settings
 
 class NaiChaSpider(scrapy.Spider):
     name = 'naicha'
     
+    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329"
+
     def start_requests(self):
-        # city_id = 1
-        # start_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d"%(city_id)
-        # data = self._getRequestData()
-        start_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/1?uuid=qwertyuioppoiuytrewq.1552977236.1.0.0&userid=-1&limit=32&offset=0&cateId=21329&areaId=13873"
-        Request(start_url, callback=self.parse )
-        pass
+        client = pymongo.MongoClient(host=settings['MONGO_HOST'], port=settings['MONGO_PORT'])
+        db = client[settings['MONGO_DB']]  # 获得数据库的句柄
+        coll = db["city_info"]
+        for city in coll.find({},{ "cityId": 1}):
+            city_id = city["cityId"]
+            yield Request(self.serach_url%(city_id, self._getUUId(), 0), callback=self.parse, dont_filter= True)
 
     def parse(self, response):
-        print(1)
-        # shop_item = ShopInfoItem()
-       
-        # next_url = response.xpath('//*[@id="deals"]//div[@class="pager"]/a[@gaevent="imt/deal/list/pageNext"]/@href').extract()
-        # if next_url:
-        #     next_url = ""
-        #     yield Request(next_url, callback=self.parse)
+        shop_item = ShopInfoItem()
+        res = response.body.decode()
+        js = json.loads(res)
+        searchResult = js["data"]["searchResult"]
+        count = int(js["data"]["totalCount"])
         
-    # def _getRequestData(self):
-    #     return json.dumps({
-    #         'uuid':"%s.%d.1.0.0"%(self._ranstr(20),int(time.time())),
-    #         'userid':"-1",
-    #         'cateid':"21329"
-    #     })
-    
-    # def _ranstr(self, num):
-    #     H = 'abcdefghijklmnopqrstuvwxyz'
-    #     salt = ''
-    #     for i in range(num):
-    #         salt += random.choice(H)
+        for shop in searchResult:
+            shop_item["shop_id"] = shop["id"]
+            shop_item["template"] = shop["template"]
+            shop_item["imageUrl"] = shop["imageUrl"]
+            shop_item["title"] = shop["title"]
+            shop_item["address"] = shop["address"]
+            shop_item["lowestprice"] = shop["lowestprice"]
+            shop_item["avgprice"] = shop["avgprice"]
+            shop_item["latitude"] = shop["latitude"]
+            shop_item["longitude"] = shop["longitude"]
+            shop_item["showType"] = shop["showType"]
+            shop_item["avgscore"] = shop["avgscore"]
+            shop_item["comments"] = shop["comments"]
+            shop_item["historyCouponCount"] = shop["historyCouponCount"]
+            shop_item["backCateName"] = shop["backCateName"]
+            shop_item["areaname"] = shop["areaname"]
+            shop_item["tag"] = shop["tag"]
+            shop_item["cate"] = shop["cate"]
+            shop_item["recentScreen"] = shop["recentScreen"]
+            shop_item["abstracts"] = shop["abstracts"]
+            shop_item["dangleAbstracts"] = shop["dangleAbstracts"]
+            shop_item["titleTags"] = shop["titleTags"]
+            shop_item["iUrl"] = shop["iUrl"]
+            shop_item["deals"] = shop["deals"]
+            shop_item["posdescr"] = shop["posdescr"]
+            shop_item["ct_poi"] = shop["ct_poi"]
+            shop_item["trace"] = shop["trace"]
+            shop_item["landmarkDistance"] = shop["landmarkDistance"] 
+            shop_item["hasAds"] = shop["hasAds"]
+            shop_item["adsClickUrl"] = shop["adsClickUrl"]
+            shop_item["adsShowUrl"] = shop["adsShowUrl"]
+            shop_item["distance"] = shop["distance"]
+            shop_item["cityId"] = shop["cityId"]
+            shop_item["city"] = shop["city"]
+            shop_item["full"] = shop["full"]
+            yield shop_item
 
-    #     return salt
+        offset = re.search(r'offset=([0-9]+)&', response.url).group(1)
+        city_id = re.search(r'/pcsearch/([0-9]+)?', response.url).group(1)
+        next_offset = int(offset) + 32
+        if count >= next_offset:
+            yield Request(self.serach_url%(int(city_id), self._getUUId(), next_offset), callback=self.parse, dont_filter= True)
+    
+    def _getUUId(self):
+        return "%s.%d.1.0.0"%(self._ranstr(20), int(time.time()))
+
+    def _ranstr(self, num):
+        H = 'abcdefghijklmnopqrstuvwxyz'
+        salt = ''
+        for i in range(num):
+            salt += random.choice(H)
+
+        return salt
