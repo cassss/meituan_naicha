@@ -8,6 +8,8 @@
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 import random,base64,redis
+from scrapy.conf import settings
+
 
 class MeituanSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -633,8 +635,9 @@ class ProxyMiddleware(object):
     errlist = []
 
     def process_request(self, request, spider):
-        proxyServer = "http-dyn.abuyun.com:9020"
-        proxy_user_pass = b"HRID47110GXA703D:FDCCBDA2D4F74C45"
+        proxyServer = settings["PROXY_SERVER"]
+
+        proxy_user_pass = settings["PROXY_USER_PASS"]
         encoded_user_pass = base64.b64encode(proxy_user_pass)
         request.meta["proxy"] = proxyServer
         request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass.decode()
