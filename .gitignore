@@ -1,4 +1,5 @@
-./data/*
-./vscode
-./logs
-./pause
+.vscode/
+/data/
+/logs/
+/pause/
+*.pyc

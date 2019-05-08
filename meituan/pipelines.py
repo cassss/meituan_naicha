@@ -4,8 +4,9 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import pymongo,time
+import pymongo
 from scrapy.conf import settings
+from datetime import datetime
 
 class MeituanPipeline(object):
 
@@ -17,16 +18,28 @@ class MeituanPipeline(object):
 
     def process_item(self, item, spider):
         Item = dict(item)
-        now = int(time.time())
+        now = datetime.utcnow()
         Item["updated_at"] = now
 
         if spider.name == "naicha" or spider.name == "re_naicha":
-            coll = self.db["naicha_data"]  # 获得collection的句柄
-            Item["created_at"] = now
-            coll.insert(Item)
+            coll = self.db["new_naicha"]  # 获得collection的句柄
+            result = coll.update_one({"shop_id":Item["shop_id"]},{"$set":Item}, True)
+            if result.matched_count == 0:
+                coll.update_one({"shop_id":Item["shop_id"]},{"$set":{"created_at":now}})
+                print("新增店铺：%d"%(Item["shop_id"]))
 
         if spider.name == "city":
             coll = self.db["city_info"]
+            Item["created_at"] = now
+            coll.insert(Item)
+
+        if spider.name == "area":
+            coll = self.db["area_info"]
+            Item["created_at"] = now
+            coll.insert(Item)
+
+        if spider.name == "area_count":
+            coll = self.db["area_count_naicha"]
             Item["created_at"] = now
             coll.insert(Item)
 

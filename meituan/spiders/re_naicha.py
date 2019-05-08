@@ -7,7 +7,9 @@ from scrapy.conf import settings
 class ReNaiChaSpider(scrapy.Spider):
     name = 're_naicha'
     
-    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329"
+    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329&q=新店"
+    rds = redis.Redis(host='localhost', port=6379, decode_responses=True)
+    shop_ids = []
 
     def start_requests(self):
         # client = pymongo.MongoClient(host=settings['MONGO_HOST'], port=settings['MONGO_PORT'])
@@ -16,9 +18,8 @@ class ReNaiChaSpider(scrapy.Spider):
         
         # for city in coll.find({},{ "cityId": 1}):
         #     city_id = city["cityId"]
-        rds = redis.Redis(host='localhost', port=6379, decode_responses=True)
-        urls = rds.lrange("err_url", 0, -1)
-        self.shop_ids = rds.lrange("shop_ids", 0, -1)
+        urls = self.rds.lrange("err_url", 0, -1)
+        self.shop_ids = self.rds.lrange("shop_ids", 0, -1)
         for url in urls:
             yield Request(url, callback=self.parse)
 
@@ -65,10 +66,12 @@ class ReNaiChaSpider(scrapy.Spider):
                 shop_item["cityId"] = shop["cityId"]
                 shop_item["city"] = shop["city"]
                 shop_item["full"] = shop["full"]
+                self.rds.lpush("shop_ids", shop["id"])
                 yield shop_item
 
         offset = re.search(r'offset=([0-9]+)&', response.url).group(1)
         city_id = re.search(r'/pcsearch/([0-9]+)?', response.url).group(1)
+
         next_offset = int(offset) + 32
         if count >= next_offset:
             yield Request(self.serach_url%(int(city_id), self._getUUId(), next_offset), callback=self.parse, dont_filter= True)

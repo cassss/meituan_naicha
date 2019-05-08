@@ -65,10 +65,29 @@ class CityInfoItem(scrapy.Item):
     create_at = scrapy.Field()
     pass
 
+class AreaItem(scrapy.Item):
+
+    areaId = scrapy.Field()
+    cityId = scrapy.Field()
+    name = scrapy.Field()
+    subareas = scrapy.Field()
+    count = scrapy.Field()
+    update_at = scrapy.Field()
+    create_at = scrapy.Field()
+
 class ShopCountItem(scrapy.Item):
 
     count = scrapy.Field()
     cityId = scrapy.Field()
+    update_at = scrapy.Field()
+    create_at = scrapy.Field()
+    pass
+
+class AreaCountItem(scrapy.Item):
+
+    count = scrapy.Field()
+    cityId = scrapy.Field()
+    areaId = scrapy.Field()
     update_at = scrapy.Field()
     create_at = scrapy.Field()
     pass
