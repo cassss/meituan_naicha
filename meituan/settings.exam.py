@@ -107,8 +107,3 @@ MONGO_HOST = "127.0.0.1"  # 主机IP
 MONGO_PORT = 27017  # 端口号
 MONGO_DB = "Spider"  # 库名 
 MONGO_COLL = "shop_url"  # collection名
-
-
-PROXY_SERVER = "http-dyn.abuyun.com:9020"
-
-PROXY_USER_PASS = b"HRID47110GXA703D:FDCCBDA2D4F74C45"
