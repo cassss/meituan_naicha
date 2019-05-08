@@ -1,5 +1,5 @@
 .vscode/
-/data/
-/logs/
-/pause/
+data/*
+logs/*
+pause/*
 *.pyc
