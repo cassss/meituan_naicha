@@ -92,6 +92,12 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+USER_AGENTS = []
+
+COOKIES = [
+   
+]
+
 MEDIA_ALLOW_REDIRECTS =True
 
 DOWNLOAD_TIMEOUT = 5
@@ -107,4 +113,9 @@ JOBDIR='pause/%d'%(int(time.time()))
 MONGO_HOST = "127.0.0.1"  # 主机IP
 MONGO_PORT = 27017  # 端口号
 MONGO_DB = "Spider"  # 库名 
-MONGO_COLL = "shop_url"  # collection名
+
+PROXY_STATUS = True
+
+PROXY_SERVER = "Proxy Url:Port"
+
+PROXY_USER_PASS = b"Your Key:Your PassWord"
