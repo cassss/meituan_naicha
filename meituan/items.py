@@ -52,6 +52,7 @@ class ShopInfoItem(scrapy.Item):
     update_at = scrapy.Item()
     create_at = scrapy.Item()
     first_feed_at = scrapy.Field()
+    phone = scrapy.Field()
     pass
 
 class CityInfoItem(scrapy.Item):
