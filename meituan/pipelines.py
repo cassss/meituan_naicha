@@ -25,7 +25,7 @@ class MeituanPipeline(object):
             coll = self.db["new_naicha"]  # 获得collection的句柄
             result = coll.update_one({"shop_id":Item["shop_id"]},{"$set":Item}, True)
             if result.matched_count == 0:
-                coll.update_one({"shop_id":Item["shop_id"]},{"$set":{"created_at":now, "first_feed_at":None}})
+                coll.update_one({"shop_id":Item["shop_id"]},{"$set":{"created_at":now}})
                 print("新增店铺：%d"%(Item["shop_id"]))
 
         if spider.name == "feedbacks":
