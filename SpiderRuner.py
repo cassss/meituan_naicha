@@ -2,6 +2,7 @@ import pymongo,csv,codecs
 from datetime import datetime
 from scrapy.conf import settings
 from scrapy import cmdline
+import time
 
 class SpiderRuner(object):
     
@@ -37,7 +38,7 @@ class SpiderRuner(object):
                     is_first = False
                 wirter.writerow(list(shop.values()))
     
-    def afterUpdateNewShopList(self, file = "data/afterUpdateNewShopList.csv"):
+    def afterUpdateNewShopList(self, file = "data/afterUpdateNewShopList_%d.csv"%(int(time.time()))):
         update = self.db["update_time"]
         updated_at = update.find_one({"spider_name":"naicha"}, sort=[('strat_at', -1)])
 
@@ -52,7 +53,7 @@ class SpiderRuner(object):
                         is_first = False
                     wirter.writerow(list(shop.values()))
     
-    def afterUpdateShopList(self, file = "data/afterUpdateShopList.csv"):
+    def afterUpdateShopList(self, file = "data/afterUpdateShopList_%d.csv"%(int(time.time()))):
         update = self.db["update_time"]
         updated_at = update.find_one({"spider_name":"naicha"}, sort=[('strat_at', -1)])
 
