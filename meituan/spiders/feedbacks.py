@@ -1,45 +1,36 @@
 # -*- coding: utf-8 -*-
-import scrapy,random,time,json,pymongo,math,re
+import scrapy,pymongo,re
 from scrapy import Request
-from meituan.items import ShopCountItem
+from meituan.items import ShopInfoItem
 from scrapy.conf import settings
 
-class ShopCountSpider(scrapy.Spider):
-    name = 'shop_count2'
+class FeedBackpider(scrapy.Spider):
+    name = 'feedbacks'
     
-    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329"
+    serach_url = "https://i.meituan.com/poi/%d/feedbacks/page_%d"
 
     def start_requests(self):
         client = pymongo.MongoClient(host=settings['MONGO_HOST'], port=settings['MONGO_PORT'])
         db = client[settings['MONGO_DB']]  # 获得数据库的句柄
-        coll = db["shop_count"]
+        coll = db["new_naicha"]
         has_city = []
-        for city in coll.find({},{ "cityId": 1}):
-            city_id = city["cityId"]
-            has_city.append(city_id)
-        coll2 = db["city_info"]
-        for city in coll2.find({},{ "cityId": 1}):
-            city_id = city["cityId"]
-            if city_id not in has_city:
-                yield Request(self.serach_url%(city_id, self._getUUId(), 0), callback=self.parse, dont_filter= True)
+        for shop in coll.find({},{ "shop_id": 1}):
+            shop_id = shop["shop_id"]
+            yield Request(self.serach_url%(shop_id, 1), callback=self.parse)
 
     def parse(self, response):
-        shop_item = ShopCountItem()
-        res = response.body.decode()
-        js = json.loads(res)
-        count = int(js["data"]["totalCount"])
-        city_id = re.search(r'/pcsearch/([0-9]+)?', response.url).group(1)
-        shop_item["count"] = count
-        shop_item["cityId"] = int(city_id)
-        yield shop_item
-    
-    def _getUUId(self):
-        return "%s.%d.1.0.0"%(self._ranstr(20), int(time.time()))
-
-    def _ranstr(self, num):
-        H = 'abcdefghijklmnopqrstuvwxyz'
-        salt = ''
-        for i in range(num):
-            salt += random.choice(H)
-
-        return salt
+        shop_id = re.search(r"poi/([0-9]+)/feedbacks", response.url).group(1)
+        shop_id = int(shop_id)
+        next_page_num = response.xpath('//div[@class="pager"]//a[@gaevent="imt/deal/feedbacklist/pageNext"]/@data-page-num').extract()
+        if next_page_num:
+            next_page_num = next_page_num[0]
+            yield Request(self.serach_url%(int(shop_id), int(next_page_num)), callback=self.parse)
+        else:
+            feed_item = ShopInfoItem()
+            time = response.xpath('//dd[@class="dd-padding"][last()]//div[@class="user-info-text"]//weak[@class="time"]/text()').extract()
+            if time:
+                feed_item["first_feed_at"] = time[0]
+            else:
+                feed_item["first_feed_at"] = "No Feed"
+            feed_item["shop_id"] = shop_id
+            yield feed_item

@@ -101,7 +101,8 @@ DOWMLOAD_DELY=5
 CONCURRENT_REQUESTS=5
 HTTPERROR_ALLOWED_CODES = [302, 303, 301]
 
-JOBDIR='pause'
+import time
+JOBDIR='pause/%d'%(int(time.time()))
 
 MONGO_HOST = "127.0.0.1"  # 主机IP
 MONGO_PORT = 27017  # 端口号
