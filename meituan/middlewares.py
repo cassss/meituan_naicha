@@ -7,8 +7,9 @@
 
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
-import random,base64,redis
 from scrapy.conf import settings
+from Services.RedisService import RedisService
+import random,base64
 
 
 class MeituanSpiderMiddleware(object):
@@ -114,7 +115,6 @@ class MyUserAgentMiddleware(UserAgentMiddleware):
 
         request.headers['User-Agent'] = random.choice(self.user_agents)
         request.headers['Cookie'] = self.cookies
-        print(request.headers)
 
 class ProxyMiddleware(object): 
     errlist = []
@@ -143,9 +143,8 @@ class ProxyMiddleware(object):
     def process_exception(self, request, exception, spider):
         name = spider.name
         if request.url in self.errlist:
-            return request
+            RedisService().DB().lpush("err_url", request.url)
         else:
             self.errlist.append(request.url)
-            rds = redis.Redis(host='localhost', port=6379, decode_responses=True)
-            rds.lpush("err_url", request.url)
+            return request
         print("\n出现异常:{0}\n".format(str(exception.args[0])))

@@ -1,6 +1,6 @@
 meituan/settings.py
 .vscode/
 data/*
-logs/*
+Storge/*
 pause/*
 *.pyc

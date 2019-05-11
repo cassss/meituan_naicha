@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
-import scrapy,pymongo,re
-from scrapy import Request
+import re
+from scrapy import Request,Spider
 from meituan.items import ShopInfoItem
 from scrapy.conf import settings
+from Repositorys.ShopRepository import ShopRepository as Shop
 
-class FeedBackpider(scrapy.Spider):
+class FeedBackpider(Spider):
     name = 'feedbacks'
     
     serach_url = "https://i.meituan.com/poi/%d/feedbacks/page_%d"
 
     def start_requests(self):
-        client = pymongo.MongoClient(host=settings['MONGO_HOST'], port=settings['MONGO_PORT'])
-        db = client[settings['MONGO_DB']]  # 获得数据库的句柄
-        coll = db["new_naicha"]
-        has_city = []
-        for shop in coll.find({},{ "shop_id": 1}):
+        for shop in Shop().gen({"shop_id":1}):
             shop_id = shop["shop_id"]
             yield Request(self.serach_url%(shop_id, 1), callback=self.parse)
 

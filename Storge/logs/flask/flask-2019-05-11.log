@@ -1,0 +1,6 @@
+Error msg!!!
+list index out of range
+test
+[2019-05-11 10:47:31,908][__init__.py:54][ERROR][123145375326208] - test
+[2019-05-11 10:53:50,824][Log.py:26][ERROR][123145558061056] - name 'ApiException' is not defined
+[2019-05-11 10:54:05,816][Log.py:26][ERROR][123145382043648] - name 'ApiException' is not defined

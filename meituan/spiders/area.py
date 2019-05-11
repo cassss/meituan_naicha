@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
-import scrapy,json,pymongo,re
-from scrapy import Request
+import json,re
+from scrapy import Request,Spider
 from meituan.items import AreaItem
 from scrapy.conf import settings
+from Repositorys.CityRepository import CityRepository as City
 
-class AreaSpider(scrapy.Spider):
+class AreaSpider(Spider):
     name = 'area'
     
     serach_url = "https://i.meituan.com/%s/all/"
 
     def start_requests(self):
-        client = pymongo.MongoClient(host=settings['MONGO_HOST'], port=settings['MONGO_PORT'])
-        db = client[settings['MONGO_DB']]  # 获得数据库的句柄
-        coll = db["city_info"]
-        for city in coll.find({},{ "pinyin": 1}):
+        for city in City().gen():
             city_id = city["pinyin"]
             yield Request(self.serach_url%(city_id), callback=self.parse)
 

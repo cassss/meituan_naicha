@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import scrapy,random,time,json,pymongo,math,re
-from scrapy import Request
+import random,time,json,math,re
+from scrapy import Request,Spider
 from meituan.items import ShopCountItem
 from scrapy.conf import settings
 
-class ShopCountSpider(scrapy.Spider):
+class ShopCountSpider(Spider):
     name = 'shop_count'
     
     serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329"
