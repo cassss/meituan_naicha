@@ -7,7 +7,7 @@ from Exceptions.ApiException import ApiException
 class JwtService(object):
 
     def __init__(self):
-        self.auth = Auth()
+        pass
     #哈希加盐的密码加密方法
     def enPassWord(self, password):#将明密码转化为hash码
         return generate_password_hash(password)#返回转换的hash码
@@ -42,25 +42,23 @@ class JwtService(object):
 
     def authenticate(self, email, password):
         """
-        用户登录，登录成功返回token，写将登录时间写入数据库；登录失败返回失败原因
+        用户登录，登录成功返回用户模型给JWT服务，写将登录时间写入数据库；登录失败返回失败原因
         :param password:
         :return: json
         """
-        
-        userInfo = self.auth.findByEmail(email)
+        auth = Auth()
+        userInfo = auth.findByEmail(email)
         if (userInfo is None):
-            raise ApiException("用户不存在", 404)
+            raise ApiException("用户 %s 不存在"%(email), 404)
         else:
             if (self.checkPassWord(userInfo.password, password)):
                 userId = userInfo._id
                 login_time = int(time.time())
-                self.auth.updateLoginTimeById(userId, login_time)  
-                token = self.encode_auth_token(str(userId), login_time)
-                if token:
-                    userInfo.id = str(userId)
-                    return userInfo
+                auth.updateLoginTimeById(userId, login_time)  
+                userInfo.id = str(userId)
+                return userInfo
             else:
-                raise ApiException("认证失败", 404)
+                raise ApiException("认证失败", 400)
 
     def identify(self, payload):
         """
@@ -68,5 +66,5 @@ class JwtService(object):
         :return: list
         """
         _id = payload['identity']
-        user = self.auth.firstById(_id)
+        user = Auth().firstById(_id)
         return user

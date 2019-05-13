@@ -4,3 +4,77 @@ test
 [2019-05-11 10:47:31,908][__init__.py:54][ERROR][123145375326208] - test
 [2019-05-11 10:53:50,824][Log.py:26][ERROR][123145558061056] - name 'ApiException' is not defined
 [2019-05-11 10:54:05,816][Log.py:26][ERROR][123145382043648] - name 'ApiException' is not defined
+[2019-05-11 17:30:37,865][Log.py:26][ERROR][123145374810112] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:30:45,699][Log.py:26][ERROR][123145380065280] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:30:49,426][Log.py:26][ERROR][123145374810112] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:31:06,669][Log.py:26][ERROR][123145441038336] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:31:11,421][Log.py:26][ERROR][123145446293504] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:31:16,494][Log.py:26][ERROR][123145441038336] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:32:14,548][Log.py:26][ERROR][123145493897216] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:35:33,290][Log.py:26][ERROR][123145389498368] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:35:39,121][Log.py:26][ERROR][123145389498368] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:35:49,684][Log.py:26][ERROR][123145389498368] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:35:55,831][Log.py:26][ERROR][123145389498368] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:37:02,407][Log.py:26][ERROR][123145389498368] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:42:30,675][Log.py:24][ERROR][123145557639168] - url_for() takes 1 positional argument but 2 were given
+[2019-05-11 17:43:13,873][Log.py:24][ERROR][123145627992064] - Could not build url for endpoint '/Storge/public/test'. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:43:28,516][Log.py:24][ERROR][123145627992064] - Could not build url for endpoint '/Storge/public/publicfile.txt'. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:45:17,763][Log.py:24][ERROR][123145588547584] - Could not build url for endpoint '/Storge/public' with values ['filename']. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:46:06,709][Log.py:24][ERROR][123145373143040] - Could not build url for endpoint '/Storge/public/' with values ['filename']. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:46:15,538][Log.py:24][ERROR][123145404166144] - Could not build url for endpoint '/Storge/public/' with values ['filename']. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:49:17,867][Log.py:24][ERROR][123145438396416] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:52:50,242][Log.py:24][ERROR][123145601961984] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:53:00,690][Log.py:24][ERROR][123145601961984] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:53:11,907][Log.py:24][ERROR][123145601961984] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:53:58,679][Log.py:24][ERROR][123145601961984] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:54:51,647][Log.py:24][ERROR][123145418698752] - Could not build url for endpoint '/Storge/public/' with values ['filename']. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:55:17,247][Log.py:24][ERROR][123145470640128] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:55:32,476][Log.py:24][ERROR][123145574948864] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:55:46,682][Log.py:24][ERROR][123145574948864] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:55:53,626][Log.py:24][ERROR][123145574948864] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:56:07,299][Log.py:24][ERROR][123145574948864] - Could not build url for endpoint '/Storge/public/publicfile.txt'. Did you mean 'pulblic_test' instead?
+[2019-05-11 17:58:55,781][Log.py:24][ERROR][123145510244352] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:59:01,224][Log.py:24][ERROR][123145510244352] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:59:20,170][Log.py:24][ERROR][123145510244352] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 17:59:52,681][Log.py:24][ERROR][123145521299456] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 18:05:23,588][Log.py:24][ERROR][123145603805184] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 18:07:08,485][Log.py:24][ERROR][123145426202624] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 18:07:49,071][Log.py:24][ERROR][123145426202624] - 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+[2019-05-11 22:18:23,764][Log.py:24][ERROR][123145556115456] - 认证失败
+[2019-05-11 22:18:27,376][Log.py:24][ERROR][123145556115456] - 认证失败
+[2019-05-11 22:20:59,507][Log.py:24][ERROR][123145470021632] - pbkdf2:sha1:1000$NyStXDoU$efaf0b0ff7ccc280a6dad234057bed8e4033b5df
+[2019-05-11 22:21:20,873][Log.py:24][ERROR][123145593606144] - 认证失败
+[2019-05-11 22:21:59,241][Log.py:24][ERROR][123145376301056] - xiaoshao2018
+[2019-05-11 22:22:49,377][Log.py:24][ERROR][123145580011520] - 'NoneType' object is not callable
+[2019-05-11 22:23:14,937][Log.py:24][ERROR][123145480089600] - xiaoshao2018
+[2019-05-11 22:23:46,019][Log.py:24][ERROR][123145521225728] - False
+[2019-05-11 22:24:27,289][Log.py:24][ERROR][123145447161856] - 认证失败
+[2019-05-11 22:28:15,604][Log.py:24][ERROR][123145613635584] - 用户不存在
+[2019-05-11 22:29:54,467][Log.py:24][ERROR][123145417170944] - pbkdf2:sha256:150000$KbjIgoOL$fa8fe0e5e2094c726e377fe82a731c2243ff1b287a0b9998356d1074d3203f9d
+[2019-05-11 22:30:32,949][Log.py:24][ERROR][123145417170944] - pbkdf2:sha256:150000$lKVO97h4$e5a569a66e9b05c429de4040bcd85505563c4774d37af92fd1a62b5ca848d62e
+[2019-05-11 22:31:56,307][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:05,022][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:16,806][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:17,942][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:19,028][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:20,120][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:32:21,957][Log.py:24][ERROR][123145426456576] - 认证失败
+[2019-05-11 22:39:39,006][Log.py:24][ERROR][123145504604160] - 认证失败
+[2019-05-11 22:43:28,418][Log.py:24][ERROR][123145526411264] - 认证失败
+[2019-05-11 22:43:32,768][Log.py:24][ERROR][123145526411264] - 创建失败，已有用户1
+[2019-05-11 22:43:49,945][Log.py:24][ERROR][123145526411264] - 创建失败，已有用户1
+[2019-05-11 22:44:37,266][Log.py:24][ERROR][123145450082304] - 创建失败，已有用户1,request:{'username': 'ysk', 'password': 'ysk', 'email': 'ysk@ysk.com'}
+[2019-05-11 22:44:47,015][Log.py:24][ERROR][123145450082304] - 创建失败，已有用户1,request:{'username': 'ysk2', 'password': 'ysk', 'email': 'ysk2@ysk.com'}
+[2019-05-11 22:45:36,148][Log.py:24][ERROR][123145481383936] - 创建失败，已有用户1,request:{'username': 'ysk2', 'password': 'ysk', 'email': 'ysk2@ysk.com'}
+[2019-05-11 22:46:10,667][Log.py:24][ERROR][123145359015936] - 创建失败，已有用户1,request:{'username': 'ysk3', 'password': 'ysk', 'email': 'ysk3@ysk.com'}
+[2019-05-11 22:47:28,587][Log.py:24][ERROR][123145366458368] - 认证失败
+[2019-05-11 22:47:58,498][Log.py:24][ERROR][123145366458368] - 用户不存在
+[2019-05-11 22:48:20,243][Log.py:24][ERROR][123145366458368] - 用户不存在
+[2019-05-11 22:48:36,310][Log.py:24][ERROR][123145366458368] - 用户不存在
+[2019-05-11 22:48:41,381][Log.py:24][ERROR][123145366458368] - 用户不存在
+[2019-05-11 22:49:49,323][Log.py:24][ERROR][123145390792704] - 用户 ysk 不存在
+[2019-05-11 22:53:44,311][Log.py:24][ERROR][123145390792704] - 用户 ysk@ysk.com 不存在
+[2019-05-11 22:54:53,284][Log.py:24][ERROR][123145526657024] - 'function' object has no attribute 'findByEmail'
+[2019-05-11 22:55:07,019][Log.py:24][ERROR][123145381613568] - 'function' object has no attribute 'findByEmail'
+[2019-05-11 22:56:46,125][Log.py:24][ERROR][123145410465792] - 认证失败
+[2019-05-11 23:50:29,596][Log.py:24][ERROR][123145410465792] - Object of type 'function' is not JSON serializable

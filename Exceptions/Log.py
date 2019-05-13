@@ -16,11 +16,9 @@ app.logger.addHandler(loghandler)
 def handle_Exception(error):
     msg = "服务器错误"
     status = 500
-
     if isinstance(error, ApiException):
         msg = error.message
         status = error.status
-
     elif config.DEBUG:
         msg = error.__str__()
     app.logger.error(msg)

@@ -9,7 +9,7 @@ app = Flask(__name__)
 # 读取config文件
 app.config.from_object(config)
 
-# 规定统一的返回
+# 规定统一的相应格式
 def response(data = None, msg ="ok", status = 200):
     response = make_response(jsonify({
         "status":status,
@@ -21,7 +21,6 @@ def response(data = None, msg ="ok", status = 200):
 
 #日志处理及错误监听
 import Exceptions.Log
-
 # 配置JWT
 from Services.JwtService import JwtService as JwtS
 

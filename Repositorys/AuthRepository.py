@@ -6,11 +6,11 @@ class AuthRepository(BaseRepository):
 
         super().__init__("users")
 
-    def hasUser(self, user):
+    def hasUser(self, username, email):
         
         return self.qurey.whereOr([
-            {"username":user["username"]},
-            {"email":user["email"]}
+            {"username":username},
+            {"email":email}
         ]).count()
 
     def findByEmail(self, email):

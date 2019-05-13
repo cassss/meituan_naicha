@@ -18,5 +18,6 @@ class Route:
     __SpiderUrl__ = __BaseUrl__ + '/spider'
     spider_test = __SpiderUrl__ + '/test'
     spider_shops = __SpiderUrl__ + '/shops'
+    spider_file  = __SpiderUrl__ + '/shops/file'
     spider_run = __SpiderUrl__ + '/run'
-    spider_job = __SpiderUrl__ + '/job'
+    spider_list = __SpiderUrl__ + '/list'

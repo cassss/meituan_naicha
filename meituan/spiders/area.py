@@ -13,7 +13,7 @@ class AreaSpider(Spider):
     def start_requests(self):
         for city in City().gen():
             city_id = city["pinyin"]
-            yield Request(self.serach_url%(city_id), callback=self.parse)
+            yield Request(self.serach_url%(city_id), callback=self.parse, dont_filter=True)
 
     def parse(self, response):
         area_item = AreaItem()

@@ -8,12 +8,14 @@ from Repositorys.AreaRepository import AreaRepository as Area
 class NaiChaSpider(Spider):
     name = 'naicha'
     
-    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329&q=新店"
+    serach_url = "https://apimobile.meituan.com/group/v4/poi/pcsearch/%d?uuid=%s&userid=-1&limit=32&offset=%d&cateId=21329&q=新店&areaId=%d"
 
     def start_requests(self):
-        for area in Area().gen({"cityId":1}):
+        area = Area()
+        for area in area.gen({"cityId":1, "areaId":1}):
             city_id = area["cityId"]
-            yield Request(self.serach_url%(city_id, self._getUUId(), 0), callback=self.parse, dont_filter= True)
+            areaId = area["areaId"]
+            yield Request(self.serach_url%(city_id, self._getUUId(), 0, areaId), callback=self.parse, dont_filter= True)
 
     def parse(self, response):
         shop_item = ShopInfoItem()
@@ -61,9 +63,10 @@ class NaiChaSpider(Spider):
 
         offset = re.search(r'offset=([0-9]+)&', response.url).group(1)
         city_id = re.search(r'/pcsearch/([0-9]+)?', response.url).group(1)
+        areaId  = re.search(r'areaId=([0-9]+)?', response.url).group(1)
         next_offset = int(offset) + 32
         if count >= next_offset:
-            yield Request(self.serach_url%(int(city_id), self._getUUId(), next_offset), callback=self.parse, dont_filter= True)
+            yield Request(self.serach_url%(int(city_id), self._getUUId(), next_offset, areaId), callback=self.parse, dont_filter= True)
     
     def _getUUId(self):
         return "%s.%d.1.0.0"%(self._ranstr(20), int(time.time()))

@@ -1,21 +1,22 @@
-import datetime
+import datetime,os,time
 
 SECRET_KEY = "yuanli"
 DEBUG = True
 
-STORGE_DIR = "./Storge"
+Home_DIR = os.getcwd()
+STORGE_DIR = Home_DIR + "/Storge"
 LOG_DIR = STORGE_DIR + "/logs"
-SCRAPY_LOG = LOG_DIR + "/scrapy"
+SCRAPY_LOG = LOG_DIR + "/scrapy/%d.log"%(int(time.time()))
 FLASK_LOG = LOG_DIR + "/flask"
 PUBLIC_DIR = STORGE_DIR + "/public"
-SCRAPY_JOB_DIR=STORGE_DIR + '/pause'
+SCRAPY_JOB_DIR=STORGE_DIR + '/pause/%d'%(int(time.time()))
 
 PROXY_STATUS = True
 PROXY_SERVER = "http://http-dyn.abuyun.com:9020"
 PROXY_USER_PASS = b"HRID47110GXA703D:FDCCBDA2D4F74C45"
 
 MONGO_HOST = "127.0.0.1"  # 主机IP
-MONGO_PORT = 27017  # 端口号
+MONGO_PORT = 27018  # 端口号
 MONGO_DB = "Spider"  # 库名 
 
 REDIS_HOST = "127.0.0.1"  # 主机IP

@@ -1,5 +1,4 @@
 from Que.Queue import RedisQueue
-from Services.RunerServices import Runer
 
 class Queue(RedisQueue):
     def __init__(self):
@@ -7,3 +6,4 @@ class Queue(RedisQueue):
 
     def run(self, res):
         print(res)
+        return res

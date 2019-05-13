@@ -1,0 +1,6 @@
+flask
+flask_jwt
+scrapy
+redis
+pymongo
+gunicorn

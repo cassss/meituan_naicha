@@ -1,5 +1,4 @@
 from Que import Spider,Test
-from App import logs
 import sys,asyncio
 
 
@@ -14,8 +13,6 @@ def main():
         print(asyncio.gather(*asyncio.Task.all_tasks()).cancel())
         loop.stop()
         loop.run_forever()
-    except:
-        main()
     finally:
         loop.close()
  

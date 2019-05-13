@@ -109,24 +109,20 @@ class MeituanDownloaderMiddleware(object):
 class MyUserAgentMiddleware(UserAgentMiddleware):
 
     user_agents = settings["USER_AGENTS"]
-    cookies = settings["COOKIES"]
 
     def process_request(self, request, spider):
 
         request.headers['User-Agent'] = random.choice(self.user_agents)
-        request.headers['Cookie'] = self.cookies
 
 class ProxyMiddleware(object): 
     errlist = []
 
     def process_request(self, request, spider):
-        proxyStatus = settings["PROXY_STATUS"]
-        if proxyStatus:
-            proxyServer = settings["PROXY_SERVER"]
-            proxy_user_pass = settings["PROXY_USER_PASS"]
-            encoded_user_pass = base64.b64encode(proxy_user_pass)
-            request.meta["proxy"] = proxyServer
-            request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass.decode()
+        proxyServer = settings["PROXY_SERVER"]
+        proxy_user_pass = settings["PROXY_USER_PASS"]
+        encoded_user_pass = base64.b64encode(proxy_user_pass)
+        request.meta["proxy"] = proxyServer
+        request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass.decode()
 
     def process_response(self, request, response, spider):
         if response.status == 403:
@@ -139,6 +135,7 @@ class ProxyMiddleware(object):
                 return request
             else:
                 return response
+        return response
 
     def process_exception(self, request, exception, spider):
         name = spider.name

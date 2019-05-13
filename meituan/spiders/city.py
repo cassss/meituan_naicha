@@ -8,9 +8,10 @@ class CitySpider(scrapy.Spider):
     
     def start_requests(self):
         start_url = "https://www.meituan.com/changecity/"
-        yield Request(start_url, callback=self.parse )
+        yield Request(start_url, callback=self.parse ,dont_filter=True )
 
     def parse(self, response):
+        print(response.url)
         cityitem = CityInfoItem()
         js = response.xpath('//*[@id="main"]/script[3]/text()').extract()[0]
         jsons = re.search(r'"openCityList":(\[.*?\}\]\]\]),', js).group(1)
