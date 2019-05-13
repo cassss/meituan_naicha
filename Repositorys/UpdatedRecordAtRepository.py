@@ -12,3 +12,5 @@ class UpdatedRecordRepository(BaseRepository):
             return True
         else:
             return False
+    def workRecord(self, limit, offset):
+        return self.qurey.pagenate(True, limit, offset, "updated_at", -1)

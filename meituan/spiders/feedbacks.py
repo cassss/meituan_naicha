@@ -12,10 +12,9 @@ class FeedBackpider(Spider):
     serach_url = "https://i.meituan.com/poi/%d/feedbacks/page_%d"
 
     def start_requests(self):
-        for shop in Shop().gen({"shop_id":1}):
+        for shop in Shop().gen({"first_feed_at":None},{"shop_id":1}):
             shop_id = shop["shop_id"]
             yield Request(self.serach_url%(shop_id, 1), callback=self.parse, dont_filter=True)
-
     def parse(self, response):
         shop_id = re.search(r"poi/([0-9]+)/feedbacks", response.url).group(1)
         shop_id = int(shop_id)

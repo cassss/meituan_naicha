@@ -17,7 +17,7 @@ class BaseRepository(object):
     def updateOneOrCreate(self, data, find = {}):
         self.qurey.updateOneOrCreate(data, find)
 
-    def gen(self, select = None):
+    def gen(self,where = None, select = None):
         
-        return self.qurey.select(select).getGen()
+        return self.qurey.where(where).select(select).getGen()
     

@@ -21,3 +21,4 @@ class Route:
     spider_file  = __SpiderUrl__ + '/shops/file'
     spider_run = __SpiderUrl__ + '/run'
     spider_list = __SpiderUrl__ + '/list'
+    spider_record = __SpiderUrl__ + '/record'

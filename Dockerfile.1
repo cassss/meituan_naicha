@@ -7,4 +7,4 @@ WORKDIR /var/www/app
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip 
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
-CMD ["python", "QueWork.py"]
+CMD ["gunicorn", "-w", "2", "-b", ":80","--reload-engine", "auto", "index:app"]

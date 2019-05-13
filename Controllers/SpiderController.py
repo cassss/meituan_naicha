@@ -7,8 +7,6 @@ from Repositorys.UpdatedRecordAtRepository import UpdatedRecordRepository as Rec
 from Services.RunerService import Runer
 from Que.Spider import RedisQueue
 
-Shop = ShopRepository()
-
 @app.route(Route.spider_test)
 @jwt_required()
 def test():
@@ -20,6 +18,7 @@ def index():
     request_all = request.values
     limit = request_all.get("limit", type=int, default= 20)
     offset = request_all.get("offset", type=int, default= 0)
+    Shop = ShopRepository()
     res = Shop.allShop(limit, offset)
 
     return response(res)
@@ -48,3 +47,14 @@ def run():
             return response("爬虫已进入队列,爬虫名为：%s"%(spider_name))
         reasion = "进入队列失败"
     return response("爬虫进入队列失败,爬虫名为：%s, 原因:%s"%(spider_name, reasion))
+
+@app.route(Route.spider_record, methods=['GET'])
+@jwt_required()
+def record():
+    request_all = request.values
+    limit = request_all.get("limit", type=int, default= 20)
+    offset = request_all.get("offset", type=int, default= 0)
+    record = Record()
+    res = record.workRecord(limit, offset)
+
+    return response(res)
